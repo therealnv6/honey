@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
+apply plugin: 'maven-publish'
 group 'io.github.nosequel.data'
 version '1.0-SNAPSHOT'
 
