@@ -6,11 +6,11 @@ log/
 /target/
 dependency-reduced-pom.xml
 rebel.xml
-gradle
+#gradle
 .gradle
 **/build/
 !src/**/build/
 gradle-app.setting
-!gradle-wrapper.jar
+#!gradle-wrapper.jar
 .gradletasknamecache
 !lib/*.jar
