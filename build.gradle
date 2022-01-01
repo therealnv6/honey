@@ -12,8 +12,8 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     implementation "org.mongodb:mongo-java-driver:3.12.10"
     implementation 'com.google.code.gson:gson:2.8.9'
