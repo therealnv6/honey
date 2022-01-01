@@ -7,11 +7,10 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group 'io.github.nosequel.data'
+group 'io.github.devrawr.data'
 version '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()
     mavenCentral()
 }
 
