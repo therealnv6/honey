@@ -70,7 +70,7 @@ class MongoStoreType<K, V>(
         val elements = mutableListOf<V>()
 
         this.collection.find().forEach {
-            val data = serializer.deserialize(it.toString())
+            val data = serializer.deserialize(it.toJson())
 
             if (data != null)
             {

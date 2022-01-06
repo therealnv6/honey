@@ -1,11 +1,9 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
     id 'maven-publish'
 }
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 group 'io.github.devrawr.data'
 version '1.0-SNAPSHOT'
@@ -20,6 +18,7 @@ dependencies {
 
     implementation "org.mongodb:mongo-java-driver:3.12.10"
     implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'redis.clients:jedis:4.0.1'
 }
 
 test {
@@ -35,6 +34,23 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+
+compileKotlin {
+    kotlinOptions.javaParameters = true
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+shadowJar {
+    archiveClassifier = ""
+
+    exclude "**/*.kotlin_metadata"
+    exclude "**/*.kotlin_builtins"
+    exclude "META-INF/"
+
+    archiveFileName = "yourjarnamedude.jar"
+}
+
+tasks.build.dependsOn(shadowJar)
 
 artifacts {
     archives sourcesJar
