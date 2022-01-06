@@ -20,5 +20,10 @@ enum class DataStoreType(
     REDIS(
         RedisConnectionPool::class.java,
         RedisStoreType::class.java
+    ),
+    
+    WONKY(
+        WonkyConnectionPool::class.java,
+        WonkyStoreType::class.java
     )
 }
