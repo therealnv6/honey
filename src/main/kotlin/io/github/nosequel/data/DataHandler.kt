@@ -2,7 +2,7 @@ package io.github.nosequel.data
 
 import io.github.nosequel.data.connection.ConnectionPool
 import io.github.nosequel.data.serializer.Serializer
-import io.github.nosequel.data.serializer.type.GsonSerializer
+import io.github.nosequel.data.serializer.type.createSerializer
 import io.github.nosequel.data.store.StoreType
 
 @Suppress("UNCHECKED_CAST", "UNUSED")
@@ -23,7 +23,7 @@ object DataHandler
     ): Serializer<T>
     {
         return (this.serializers[type] as Serializer<T>?)
-            ?: GsonSerializer.createSerializer()
+            ?: createSerializer()
     }
 
     fun <T : ConnectionPool<*>> withConnectionPool(
