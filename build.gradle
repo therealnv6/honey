@@ -1,11 +1,10 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
-    id 'java'
     id 'maven-publish'
 }
 
-group 'io.github.devrawr.data'
+group 'io.github.devrawr'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -13,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
     implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     implementation "org.mongodb:mongo-java-driver:3.12.10"
@@ -37,7 +36,15 @@ shadowJar {
     exclude "**/*.kotlin_builtins"
     exclude "META-INF/"
 
-    archiveFileName = "yourjarnamedude.jar"
+    archiveFileName = "honey.jar"
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
+        }
+    }
 }
 
 tasks.build.dependsOn(shadowJar)
