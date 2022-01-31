@@ -1,6 +1,5 @@
 import io.github.nosequel.data.DataHandler
 import io.github.nosequel.data.DataStoreType
-import io.github.nosequel.data.connection.flatfile.FlatfileConnectionPool
 import io.github.nosequel.data.connection.mongo.NoAuthMongoConnectionPool
 import org.junit.jupiter.api.Test
 
@@ -10,6 +9,7 @@ class MongoTypeTest
     fun createType()
     {
         DataHandler
+            .linkTypeToId<Person>("test")
             .withConnectionPool<NoAuthMongoConnectionPool> {
                 this.databaseName = "honey"
                 this.hostname = "127.0.0.1"
@@ -17,9 +17,7 @@ class MongoTypeTest
             }
 
         val type = DataHandler
-            .createStoreType<String, Person>(DataStoreType.MONGO) {
-                this.id = "test"
-            }
+            .createStoreType<String, Person>(DataStoreType.MONGO)
 
         type.store(
             "first", Person("Patrick", 16)

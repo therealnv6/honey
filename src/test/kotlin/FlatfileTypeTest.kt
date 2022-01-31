@@ -9,14 +9,13 @@ class FlatfileTypeTest
     fun createType()
     {
         DataHandler
+            .linkTypeToId<Person>("test")
             .withConnectionPool<FlatfileConnectionPool> {
                 this.directory = "data/"
             }
 
         val type = DataHandler
-            .createStoreType<String, Person>(DataStoreType.FLATFILE) {
-                this.id = "test"
-            }
+            .createStoreType<String, Person>(DataStoreType.FLATFILE)
 
         type.store(
             mapOf(

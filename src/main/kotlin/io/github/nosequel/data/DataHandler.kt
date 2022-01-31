@@ -8,8 +8,12 @@ import io.github.nosequel.data.store.StoreType
 @Suppress("UNCHECKED_CAST", "UNUSED")
 object DataHandler
 {
-    private val connections: HashMap<Class<out ConnectionPool<*>>, ConnectionPool<*>> = hashMapOf()
-    val serializers: HashMap<Class<*>, Serializer<*>> = hashMapOf()
+    private val connections = hashMapOf<Class<out ConnectionPool<*>>, ConnectionPool<*>>()
+
+    val linkedIds = hashMapOf<Class<*>, String>()
+    val serializers = hashMapOf<Class<*>, Serializer<*>>()
+
+    const val DEFAULT_ID = "data-store-default"
 
     fun <T : ConnectionPool<*>> findConnection(
         type: Class<T>
@@ -67,6 +71,14 @@ object DataHandler
             connectionPool, serializer
         ).apply {
             action.invoke(this as StoreType<K, V>)
+
+            val linkedId = linkedIds[V::class.java]
+
+            if (this.id == DEFAULT_ID && linkedId != null)
+            {
+                this.id = linkedId
+            }
+
             this.load()
         } as StoreType<K, V>
     }
@@ -88,6 +100,13 @@ object DataHandler
     {
         return this.apply {
             this.withSerializer(T::class.java.newInstance())
+        }
+    }
+
+    inline fun <reified T> linkTypeToId(id: String): DataHandler
+    {
+        return this.apply {
+            this.linkedIds[T::class.java] = id
         }
     }
 }
