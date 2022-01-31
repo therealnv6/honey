@@ -19,11 +19,10 @@ class FlatfileTypeTest
             }
 
         type.store(
-            "first", Person("Patrick", 16)
-        )
-
-        type.store(
-            "second", Person("Patrick", 17)
+            mapOf(
+                "first" to Person("Patrick", 16),
+                "second" to Person("Patrick", 27)
+            )
         )
 
         type.retrieveAll {

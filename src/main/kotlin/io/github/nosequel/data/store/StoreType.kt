@@ -12,6 +12,15 @@ abstract class StoreType<K, V>
 
     abstract fun load(): StoreType<K, V>
 
+    fun store(
+        map: Map<K, V>
+    )
+    {
+        map.forEach {
+            store(it.key, it.value)
+        }
+    }
+
     abstract fun store(
         key: K,
         value: V,
@@ -54,6 +63,15 @@ abstract class StoreType<K, V>
             this@StoreType.store(
                 key, value
             )
+        }
+    }
+
+    fun storeAsync(
+        map: Map<K, V>
+    )
+    {
+        map.forEach {
+            storeAsync(it.key, it.value)
         }
     }
 }
