@@ -1,23 +1,20 @@
 import io.github.nosequel.data.DataHandler
 import io.github.nosequel.data.DataStoreType
 import io.github.nosequel.data.connection.flatfile.FlatfileConnectionPool
-import io.github.nosequel.data.connection.mongo.NoAuthMongoConnectionPool
 import org.junit.jupiter.api.Test
 
-class MongoTypeTest
+class FlatfileTypeTest
 {
     @Test
     fun createType()
     {
         DataHandler
-            .withConnectionPool<NoAuthMongoConnectionPool> {
-                this.databaseName = "honey"
-                this.hostname = "127.0.0.1"
-                this.port = 27017
+            .withConnectionPool<FlatfileConnectionPool> {
+                this.directory = "data/"
             }
 
         val type = DataHandler
-            .createStoreType<String, Person>(DataStoreType.MONGO) {
+            .createStoreType<String, Person>(DataStoreType.FLATFILE) {
                 this.id = "test"
             }
 
@@ -25,7 +22,11 @@ class MongoTypeTest
             "first", Person("Patrick", 16)
         )
 
-        type.retrieve("first") {
+        type.store(
+            "second", Person("Patrick", 17)
+        )
+
+        type.retrieveAll {
             println(it)
         }
     }

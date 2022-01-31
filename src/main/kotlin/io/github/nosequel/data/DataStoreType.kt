@@ -1,9 +1,11 @@
 package io.github.nosequel.data
 
 import io.github.nosequel.data.connection.ConnectionPool
+import io.github.nosequel.data.connection.flatfile.FlatfileConnectionPool
 import io.github.nosequel.data.connection.mongo.MongoConnectionPool
 import io.github.nosequel.data.connection.redis.RedisConnectionPool
 import io.github.nosequel.data.store.StoreType
+import io.github.nosequel.data.store.type.FlatfileStoreType
 import io.github.nosequel.data.store.type.MongoStoreType
 import io.github.nosequel.data.store.type.RedisStoreType
 
@@ -20,5 +22,10 @@ enum class DataStoreType(
     REDIS(
         RedisConnectionPool::class.java,
         RedisStoreType::class.java
+    ),
+
+    FLATFILE(
+        FlatfileConnectionPool::class.java,
+        FlatfileStoreType::class.java
     )
 }

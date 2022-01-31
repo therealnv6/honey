@@ -31,14 +31,14 @@ object DataHandler
     ): DataHandler
     {
         return this.apply {
-            var superClass = connectionPool.javaClass.superclass
+            var superClass = connectionPool.javaClass
 
-            while (superClass != null && superClass.superclass != ConnectionPool::class.java)
+            while (superClass.superclass != ConnectionPool::class.java)
             {
-                superClass = superClass.superclass
+                superClass = superClass.superclass as Class<T>
             }
 
-            this.connections[superClass as Class<out ConnectionPool<*>>] = connectionPool
+            this.connections[superClass] = connectionPool
         }
     }
 
