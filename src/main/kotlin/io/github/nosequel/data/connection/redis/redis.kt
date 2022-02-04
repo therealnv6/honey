@@ -40,7 +40,7 @@ abstract class RedisConnectionPool : ConnectionPool<Jedis>()
 class NoAuthRedisConnectionPool: RedisConnectionPool()
 {
     override var hostname: String? = "127.0.0.1"
-    override var port: Int? = 27017
+    override var port: Int? = 6379
 
     override fun getConnectionPool(): Jedis
     {
@@ -51,7 +51,7 @@ class NoAuthRedisConnectionPool: RedisConnectionPool()
 class PasswordRedisConnectionPool: RedisConnectionPool()
 {
     override var hostname: String? = "127.0.0.1"
-    override var port: Int? = 27017
+    override var port: Int? = 6379
 
     var password: String? = ""
 
@@ -65,7 +65,7 @@ class PasswordRedisConnectionPool: RedisConnectionPool()
 class PasswordUserRedisConnectionPool: RedisConnectionPool()
 {
     override var hostname: String? = "127.0.0.1"
-    override var port: Int? = 27017
+    override var port: Int? = 6379
 
     var password: String? = ""
     var username: String? = ""
