@@ -80,9 +80,12 @@ object DataHandler
 
             val linkedId = linkedIds[V::class.java]
 
-            if (this.id == DEFAULT_ID && linkedId != null)
+            if (this.id == getIdType<V>() && linkedId != null)
             {
                 this.id = linkedId
+            } else if (this.id == DEFAULT_ID)
+            {
+                this.id = getIdType<V>()
             }
 
             this.load()
@@ -113,9 +116,12 @@ object DataHandler
             if (channel != null)
             {
                 this.id = channel
-            } else if (this.id == DEFAULT_ID && linkedId != null)
+            } else if (this.id == getIdType<T>() && linkedId != null)
             {
                 this.id = linkedId
+            } else if (this.id == DEFAULT_ID)
+            {
+                this.id = getIdType<T>()
             }
 
             this.load()
@@ -170,5 +176,12 @@ object DataHandler
         return this.apply {
             this.linkedIds[type] = id
         }
+    }
+
+    inline fun <reified T> getIdType() = this.getIdType(T::class.java)
+
+    fun <T> getIdType(type: Class<T>): String
+    {
+        return type.simpleName.lowercase()
     }
 }
