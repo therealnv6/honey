@@ -84,4 +84,9 @@ class FlatfileStoreType<K, V>(
 
         return emptyList()
     }
+
+    override fun delete(key: K)
+    {
+        TODO("Not yet implemented")
+    }
 }

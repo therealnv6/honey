@@ -17,7 +17,7 @@ class MongoStoreType<K, V>(
 
     private var collection by Delegates.notNull<MongoCollection<Document>>()
 
-    override fun load() : MongoStoreType<K, V>
+    override fun load(): MongoStoreType<K, V>
     {
         return this.apply {
             this.collection = connectionPool.getCollection(id)
@@ -81,5 +81,10 @@ class MongoStoreType<K, V>(
         }
 
         return elements
+    }
+
+    override fun delete(key: K)
+    {
+        this.collection.deleteMany(Filters.eq("_id", key.toString()))
     }
 }

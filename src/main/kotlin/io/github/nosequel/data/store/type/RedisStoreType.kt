@@ -67,4 +67,9 @@ class RedisStoreType<K, V>(
 
         return returnValues
     }
+
+    override fun delete(key: K)
+    {
+        this.connectionPool.getConnectionPool().hdel(key.toString())
+    }
 }

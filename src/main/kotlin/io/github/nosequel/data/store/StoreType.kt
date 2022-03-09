@@ -27,6 +27,10 @@ abstract class StoreType<K, V>
         value: V,
     )
 
+    abstract fun delete(
+        key: K
+    )
+
     abstract fun retrieve(
         key: K,
         action: ((V) -> Unit)? = null
@@ -64,6 +68,15 @@ abstract class StoreType<K, V>
             this@StoreType.store(
                 key, value
             )
+        }
+    }
+
+    fun deleteAsync(
+        key: K
+    )
+    {
+        ForkJoinPool.commonPool().run {
+            this@StoreType.delete(key)
         }
     }
 
